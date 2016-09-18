@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),            
             new FOS\RestBundle\FOSRestBundle(),            
 
             new AppBundle\AppBundle(),

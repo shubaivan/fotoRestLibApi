@@ -1,0 +1,21 @@
+parameters:
+    app.repository.photo.class:                            AppBundle\Entity\Repository\PhotoRepository
+    app.entity.photo.class:                                AppBundle\Entity\Photo
+
+    app.repository.tags.class:                             AppBundle\Entity\Repository\TagsRepository
+    app.entity.tags.class:                                 AppBundle\Entity\Tags
+
+services:
+    app.repository.photo:
+        class:            "%app.repository.photo.class%"
+        factory_service:  doctrine.orm.default_entity_manager
+        factory_method:   getRepository
+        arguments:
+            - "%app.entity.photo.class%"
+
+    app.repository.tags:
+        class:            "%app.repository.tags.class%"
+        factory_service:  doctrine.orm.default_entity_manager
+        factory_method:   getRepository
+        arguments:
+            - "%app.entity.tags.class%"

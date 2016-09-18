@@ -1,0 +1,9 @@
+api_photo:
+    type: rest
+    prefix:   /api
+    resource: "@AppBundle/Controller/Api/FotoController.php"
+
+api_tag:
+    type: rest
+    prefix:   /api
+    resource: "@AppBundle/Controller/Api/TagsController.php"

@@ -4,15 +4,29 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as AssertBridge;
 
 /**
  * Tags.
  *
  * @ORM\Table(name="tags")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\TagsRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
+ * @ORM\HasLifecycleCallbacks
+ * @AssertBridge\UniqueEntity(
+ *     groups={"post_tag"},
+ *     fields="tag",
+ *     errorPath="not valid",
+ *     message="This tag is already in use."
+ * )
  */
 class Tags
 {
+    const GROUP_GET_TAG = 'get_tag';
+    const GROUP_POST_TAG = 'post_tag';
+    
     use Timestampable;
     
     /**
@@ -21,17 +35,50 @@ class Tags
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Groups({"get_directories_entities"})
-     * @Annotation\Expose()
+     * @Annotation\Groups({"get_tag"})
      */
     private $id;
 
     /**
      * @var string
      *
+     * @Assert\NotBlank(groups={"post_tag"})
      * @ORM\Column(name="tag", type="string", length=255)
-     * @Annotation\Groups({"get_directories_entities"})
-     * @Annotation\Expose()
+     * @Annotation\Groups({"get_tag", "post_tag"})
      */
     private $tag;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set tag
+     *
+     * @param string $tag
+     *
+     * @return Tags
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
 }
