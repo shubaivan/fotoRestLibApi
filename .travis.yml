@@ -26,8 +26,7 @@ before_script:
 - mkdir -p web/upload/media
 - php app/console do:da:cr -e=test > /dev/null
 - php app/console do:sc:cr -e=test > /dev/null
-- php app/console assets:install --symlink
-- php app/console assetic:dump
+
 - sudo chmod -R 777 app/cache app/logs
 - app/console --env=test cache:warmup
 - sudo chmod -R 777 app/cache app/logs
