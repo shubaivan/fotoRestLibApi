@@ -2,14 +2,14 @@
 
 namespace AppBundle\Application\Tags;
 
-use AppBundle\Entity\Tags;
+use AppBundle\Entity\Tags as TagEntity;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 interface TagsInterface
 {
     /**
      * @param ParameterBag $parameterBag
-     * @return Tags
+     * @return TagEntity
      */
     public function postTagEntity(
         ParameterBag $parameterBag

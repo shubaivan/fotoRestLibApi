@@ -1,0 +1,3 @@
+parameters:
+    sqlite_path: "%kernel.cache_dir%/sqlite.db.cache"
+    doctrine.dbal.connection_wrapper.class: AppBundle\Tests\Stubs\Doctrine\DBAL\ConnectionWrapper

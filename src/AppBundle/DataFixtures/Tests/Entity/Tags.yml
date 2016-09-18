@@ -1,0 +1,3 @@
+AppBundle\Entity\Tags:
+    tag:
+        tag:    'test-tag'

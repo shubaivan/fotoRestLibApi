@@ -40,7 +40,6 @@ class TagsController extends AbstractRestController
      */
     public function postTagAction(Request $request)
     {
-        $r = 1;
         try {
             $tag = $this->getTagInterface()->postTagEntity(
                 $request->request
