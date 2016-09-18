@@ -51,7 +51,7 @@ class Photo implements PhotoInterface
         ParameterBag $parameterBag
     ) {
         $photo = $this->getDomainPhotoInterface()->postPhoto($parameterBag, [PhotoEntity::GROUP_POST_PHOTO]);
-        $this->getDomainPhotoInterface()->validateOrder($photo, [PhotoEntity::GROUP_POST_PHOTO]);
+        $this->getDomainPhotoInterface()->validatePhoto($photo, [PhotoEntity::GROUP_POST_PHOTO]);
         $this->getDomainPhotoInterface()->postRepositoryPhoto($photo);
         return $photo;
     }

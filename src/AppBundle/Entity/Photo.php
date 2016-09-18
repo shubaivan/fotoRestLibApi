@@ -47,10 +47,21 @@ class Photo
 
     /**
      * @var Tags[]|ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="Tags", mappedBy="photo")
+     * @ORM\ManyToMany(targetEntity="Tags", inversedBy="photo")
+     * @Annotation\Type("Relation<AppBundle\Entity\Tags>")
+     * @Annotation\SerializedName("tag_ids")
+     * @Annotation\Groups({
+     *     "post_photo", "get_photo"
+     * })
      */
-    protected $tags;    
+    protected $tags;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -85,22 +96,15 @@ class Photo
     {
         return $this->filePath;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add tag
      *
-     * @param Tags $tag
+     * @param \AppBundle\Entity\Tags $tag
      *
      * @return Photo
      */
-    public function addTag(Tags $tag)
+    public function addTag(\AppBundle\Entity\Tags $tag)
     {
         $this->tags[] = $tag;
 
@@ -110,9 +114,9 @@ class Photo
     /**
      * Remove tag
      *
-     * @param Tags $tag
+     * @param \AppBundle\Entity\Tags $tag
      */
-    public function removeTag(Tags $tag)
+    public function removeTag(\AppBundle\Entity\Tags $tag)
     {
         $this->tags->removeElement($tag);
     }

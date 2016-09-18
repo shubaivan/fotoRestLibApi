@@ -4,7 +4,7 @@ namespace AppBundle\Domain\Photo;
 
 use \AppBundle\Entity\Photo as PhotoEntity;
 use AppBundle\Exception\DeserializeException;
-use AppBundleBundle\Exception\ValidatorException;
+use AppBundle\Exception\ValidatorException;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 interface PhotoInterface
@@ -32,7 +32,7 @@ interface PhotoInterface
      * @param array $group
      * @return PhotoEntity|ValidatorException
      */
-    public function validateOrder(
+    public function validatePhoto(
         PhotoEntity $photo,
         array $group = []
     );

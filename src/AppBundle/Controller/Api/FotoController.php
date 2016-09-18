@@ -23,6 +23,7 @@ class FotoController extends AbstractRestController
      * description = "Upload file image",
      *  parameters={
      *      {"name"="file", "dataType"="file", "required"=true, "description"="upload file in S3"},
+     *      {"name"="tag_ids", "dataType"="arrya<integer>", "required"=true, "description"="array tag ids"},
      *  },
      * statusCodes = {
      *      200 = "Successful",
@@ -38,6 +39,7 @@ class FotoController extends AbstractRestController
      */
     public function postFileAction(Request $request)
     {
+        $r =1;
         try {
             $upload = $this->getPhotoInterface()->postPhoto(
                 $request->request,

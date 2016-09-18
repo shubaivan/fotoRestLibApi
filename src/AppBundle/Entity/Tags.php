@@ -52,10 +52,18 @@ class Tags
     /**
      * @var Photo[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Photo", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Photo", mappedBy="tags")
      */
     protected $photo;
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photo = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -89,22 +97,15 @@ class Tags
     {
         return $this->tag;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->photo = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add photo
      *
-     * @param \AppBundle\Entity\Photo $photo
+     * @param Photo $photo
      *
      * @return Tags
      */
-    public function addPhoto(\AppBundle\Entity\Photo $photo)
+    public function addPhoto(Photo $photo)
     {
         $this->photo[] = $photo;
 
@@ -114,9 +115,9 @@ class Tags
     /**
      * Remove photo
      *
-     * @param \AppBundle\Entity\Photo $photo
+     * @param Photo $photo
      */
-    public function removePhoto(\AppBundle\Entity\Photo $photo)
+    public function removePhoto(Photo $photo)
     {
         $this->photo->removeElement($photo);
     }
