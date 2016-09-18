@@ -20,7 +20,20 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+
+        "doctrine/migrations": "1.5.*@dev",
+        "doctrine/doctrine-migrations-bundle": "1.1.*@dev",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*",
+        "doctrine/data-fixtures": "1.1.*",
+        "hautelook/alice-bundle": "0.2",
+        "gedmo/doctrine-extensions": "2.3.*",
+        "stof/doctrine-extensions-bundle": "^1.1",
+
+        "friendsofsymfony/rest-bundle": "~1.4",
+        "jms/serializer-bundle": "0.13.0",
+        "nelmio/api-doc-bundle": "2.7.*@dev",
+        "nelmio/cors-bundle": "~1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
