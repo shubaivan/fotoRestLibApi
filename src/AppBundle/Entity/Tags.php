@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -49,6 +50,13 @@ class Tags
     private $tag;
 
     /**
+     * @var Photo[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Photo", inversedBy="tags")
+     */
+    protected $photo;
+    
+    /**
      * Get id
      *
      * @return integer
@@ -80,5 +88,46 @@ class Tags
     public function getTag()
     {
         return $this->tag;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photo = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \AppBundle\Entity\Photo $photo
+     *
+     * @return Tags
+     */
+    public function addPhoto(\AppBundle\Entity\Photo $photo)
+    {
+        $this->photo[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \AppBundle\Entity\Photo $photo
+     */
+    public function removePhoto(\AppBundle\Entity\Photo $photo)
+    {
+        $this->photo->removeElement($photo);
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }
