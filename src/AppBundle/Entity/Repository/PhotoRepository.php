@@ -52,4 +52,12 @@ class PhotoRepository extends EntityRepository implements PhotoRepositoryInterfa
     {
         $this->_em->flush();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findEntityBy(array $parameters)
+    {
+        return $this->findOneBy($parameters);
+    }
 }

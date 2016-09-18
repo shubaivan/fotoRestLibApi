@@ -34,4 +34,10 @@ interface PhotoRepositoryInterface
      * @return void
      */
     public function flushEntity();
+
+    /**
+     * @param array $parameters
+     * @return Photo|null
+     */
+    public function findEntityBy(array $parameters);
 }

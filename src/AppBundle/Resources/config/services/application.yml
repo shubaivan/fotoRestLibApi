@@ -8,6 +8,7 @@ services:
         arguments:
             - "@app.domain.photo"
             - "@app.file_uploader"
+            - "@app.object_updater"
 
     app.application.tags:
         class: "%app.application.tags.class%"

@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="app.image_worker.class">AppBundle\Helper\ImageWorker</parameter>
         <parameter key="app.file_uploader.class">AppBundle\Helper\FileUploader</parameter>
+        <parameter key="app.object_updater.class">AppBundle\Services\ObjectUpdater</parameter>
     </parameters>
 
     <services>
@@ -19,6 +20,9 @@
             <argument type="service" id="app.image_worker" />
             <argument>%kernel.root_dir%</argument>
         </service>
-    </services>
 
+        <service id="app.object_updater" class="%app.object_updater.class%">
+            <argument type="service" id="serializer" />
+        </service>
+    </services>
 </container>

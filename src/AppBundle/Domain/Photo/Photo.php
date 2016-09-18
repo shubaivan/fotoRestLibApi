@@ -101,7 +101,15 @@ class Photo implements PhotoInterface
         }
 
         return $photo;
-    }    
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findEntityBy(array $parameters)
+    {
+        return $this->getPhotoRepository()->findEntityBy($parameters);
+    }
 
     /**
      * @return PhotoRepositoryInterface

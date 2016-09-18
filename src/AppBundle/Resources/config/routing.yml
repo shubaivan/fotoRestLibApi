@@ -1,7 +1,7 @@
 api_photo:
     type: rest
     prefix:   /api
-    resource: "@AppBundle/Controller/Api/FotoController.php"
+    resource: "@AppBundle/Controller/Api/PhotoController.php"
 
 api_tag:
     type: rest

@@ -3,6 +3,7 @@
 namespace AppBundle\Domain\Photo;
 
 use \AppBundle\Entity\Photo as PhotoEntity;
+use AppBundle\Entity\Photo;
 use AppBundle\Exception\DeserializeException;
 use AppBundle\Exception\ValidatorException;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -36,4 +37,10 @@ interface PhotoInterface
         PhotoEntity $photo,
         array $group = []
     );
+
+    /**
+     * @param array $parameters
+     * @return Photo|null
+     */
+    public function findEntityBy(array $parameters);
 }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Application\Photo;
 
+use AppBundle\Entity\Photo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -23,4 +24,14 @@ interface PhotoInterface
     public function postPhotoEntity(
         ParameterBag $parameterBag
     );
+
+    /**
+     * @param ParameterBag $parameterBag
+     * @param integer $id
+     * @return Photo
+     */
+    public function putPhoto(
+        ParameterBag $parameterBag,
+        $id
+    );    
 }

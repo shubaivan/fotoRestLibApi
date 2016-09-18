@@ -20,6 +20,7 @@ class Photo
 {
     const GROUP_POST_PHOTO = 'post_photo';
     const GROUP_GET_PHOTO = 'get_photo';
+    const GROUP_PUT_PHOTO = 'put_photo';
     
     use Timestampable;
 
@@ -50,11 +51,13 @@ class Photo
      * @ORM\ManyToMany(targetEntity="Tags", inversedBy="photo")
      * @Annotation\Type("Relation<AppBundle\Entity\Tags>")
      * @Annotation\SerializedName("tag_ids")
+     * @Annotation\Accessor(setter="setSerializedTag")
      * @Annotation\Groups({
-     *     "post_photo", "get_photo"
+     *     "post_photo", "get_photo", "put_photo"
      * })
      */
     protected $tags;
+    
     /**
      * Constructor
      */
@@ -100,11 +103,11 @@ class Photo
     /**
      * Add tag
      *
-     * @param \AppBundle\Entity\Tags $tag
+     * @param Tags $tag
      *
      * @return Photo
      */
-    public function addTag(\AppBundle\Entity\Tags $tag)
+    public function addTag(Tags $tag)
     {
         $this->tags[] = $tag;
 
@@ -114,9 +117,9 @@ class Photo
     /**
      * Remove tag
      *
-     * @param \AppBundle\Entity\Tags $tag
+     * @param Tags $tag
      */
-    public function removeTag(\AppBundle\Entity\Tags $tag)
+    public function removeTag(Tags $tag)
     {
         $this->tags->removeElement($tag);
     }
@@ -130,4 +133,20 @@ class Photo
     {
         return $this->tags;
     }
+
+    /**
+     * @param array $tags
+     */
+    public function setSerializedTag (array $tags) {
+        $this->tags = new ArrayCollection();
+        if (!empty($tags)) {
+            foreach ($tags as $tag) {
+                $this->tags[] = $tag;
+            }
+        }
+
+        if (empty($tags)) {
+            $this->tags[] = new Tags();
+        }
+    }    
 }
