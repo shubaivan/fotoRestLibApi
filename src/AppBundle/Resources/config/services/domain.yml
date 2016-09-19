@@ -1,0 +1,19 @@
+parameters:
+    app.domain.photo.class:                             AppBundle\Domain\Photo\Photo
+    app.domain.tags.class:                              AppBundle\Domain\Tags\Tags
+
+
+services:
+    app.domain.photo:
+        class:            "%app.domain.photo.class%"
+        arguments:
+            - "@app.repository.photo"
+            - "@serializer"
+            - "@validator"
+
+    app.domain.tags:
+        class:            "%app.domain.tags.class%"
+        arguments:
+            - "@app.repository.tags"
+            - "@serializer"
+            - "@validator"

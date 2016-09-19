@@ -1,0 +1,17 @@
+parameters:
+    app.application.photo.class:                             AppBundle\Application\Photo\Photo
+    app.application.tags.class:                             AppBundle\Application\Tags\Tags
+
+services:
+    app.application.photo:
+        class: "%app.application.photo.class%"
+        arguments:
+            - "@app.domain.photo"
+            - "@app.file_uploader"
+            - "@app.object_updater"
+            - "@app.additional_function"
+
+    app.application.tags:
+        class: "%app.application.tags.class%"
+        arguments:
+            - "@app.domain.tags"

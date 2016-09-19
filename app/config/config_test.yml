@@ -1,5 +1,6 @@
 imports:
     - { resource: config_dev.yml }
+    - { resource: parameters_test_persistent.yml}
 
 framework:
     test: ~
@@ -14,3 +15,22 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+doctrine:
+    dbal:
+        default_connection: default
+
+        connections:
+            default:
+                driver:  pdo_sqlite
+                user:    test
+                memory:  true
+                charset: utf8
+                wrapper_class: "%doctrine.dbal.connection_wrapper.class%"
+
+services:
+
+    artel.profile.tests.stubs.doctrine.dbal.post_connect_event_subscriber:
+        class: AppBundle\Tests\Stubs\Doctrine\DBAL\PostConnectEventSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
