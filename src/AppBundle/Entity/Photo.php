@@ -115,6 +115,22 @@ class Photo
     }
 
     /**
+     * Add tags
+     *
+     * @param Tags[] $tags
+     *
+     * @return Photo
+     */
+    public function addTags($tags)
+    {
+        foreach ($tags as $tag) {
+            $this->addTag($tag);
+        }
+
+        return $this;
+    }
+
+    /**
      * Remove tag
      *
      * @param Tags $tag

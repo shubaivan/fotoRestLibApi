@@ -25,7 +25,7 @@ class TagControllerTest extends FunctionalTestCase
 
         $this->user                 = null;
     }
-    
+
     public function testPostTagAction()
     {
         $nameTag = 'new_test_tag';

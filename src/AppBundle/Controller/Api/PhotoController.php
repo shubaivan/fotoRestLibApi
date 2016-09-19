@@ -48,7 +48,7 @@ class PhotoController extends AbstractRestController
      *
      * @return View
      */
-    public function getFilesAction(ParamFetcher $paramFetcher, Request $request)
+    public function getPhotoAction(ParamFetcher $paramFetcher, Request $request)
     {
         try {
             $photos = $this->getPhotoInterface()->getPhotoByParameters(
@@ -91,7 +91,7 @@ class PhotoController extends AbstractRestController
      *
      * @return View
      */
-    public function postFileAction(Request $request)
+    public function postPhotoAction(Request $request)
     {
         try {
             $upload = $this->getPhotoInterface()->postPhoto(
@@ -136,7 +136,7 @@ class PhotoController extends AbstractRestController
      *
      * @return View
      */
-    public function putFileAction(Request $request, $id)
+    public function putPhotoAction(Request $request, $id)
     {
         try {
             $upload = $this->getPhotoInterface()->putPhoto(
@@ -180,7 +180,7 @@ class PhotoController extends AbstractRestController
      *
      * @return View
      */
-    public function deletedFileAction($id)
+    public function deletedPhotoAction($id)
     {
         try {
             $this->getPhotoInterface()->removeEntity(

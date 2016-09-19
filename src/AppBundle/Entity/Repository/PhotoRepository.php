@@ -73,7 +73,8 @@ class PhotoRepository extends EntityRepository implements PhotoRepositoryInterfa
         $dateTo
     )
     {
-        $qb = $this->getEntityManager()->createQueryBuilder();
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
         $qb
             ->select('p')
             ->from('AppBundle:Photo', 'p')
