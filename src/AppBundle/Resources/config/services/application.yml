@@ -9,6 +9,7 @@ services:
             - "@app.domain.photo"
             - "@app.file_uploader"
             - "@app.object_updater"
+            - "@app.additional_function"
 
     app.application.tags:
         class: "%app.application.tags.class%"

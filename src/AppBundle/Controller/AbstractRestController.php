@@ -14,8 +14,11 @@ class AbstractRestController extends FOSRestController
     const HTTP_STATUS_CODE_BAD_REQUEST    = 400;
     const HTTP_STATUS_CODE_INTERNAL_ERROR = 500;
     const DATA_MESSAGE                    = 'message';
+    const SUCCESS                         = 'success';
     const SERVER_ERROR                    = 'Server Error';
-
+    const PARAM_DATE_FROM                 = 'date_from';
+    const PARAM_DATE_TO                   = 'date_to';
+    
     /**
      * @param $data
      * @param array|null $groups

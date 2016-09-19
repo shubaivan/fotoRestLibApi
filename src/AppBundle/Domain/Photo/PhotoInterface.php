@@ -3,9 +3,9 @@
 namespace AppBundle\Domain\Photo;
 
 use \AppBundle\Entity\Photo as PhotoEntity;
-use AppBundle\Entity\Photo;
 use AppBundle\Exception\DeserializeException;
 use AppBundle\Exception\ValidatorException;
+use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 interface PhotoInterface
@@ -39,8 +39,28 @@ interface PhotoInterface
     );
 
     /**
+     * @param PhotoEntity $photo
+     * @return void
+     */
+    public function removeEntity(PhotoEntity $photo);
+    
+    /**
      * @param array $parameters
-     * @return Photo|null
+     * @return PhotoEntity|null
      */
     public function findEntityBy(array $parameters);
+
+    /**
+     * @param ParameterBag $parameterBag
+     * @param ParamFetcher $paramFetcher
+     * @param \DateTime|null $dateFrom
+     * @param \DateTime|null $dateTo
+     * @return Photo[]
+     */
+    public function getPhotoByParameters(
+        ParameterBag $parameterBag,        
+        ParamFetcher $paramFetcher,
+        $dateFrom,
+        $dateTo
+    );    
 }

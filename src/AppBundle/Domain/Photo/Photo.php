@@ -5,6 +5,7 @@ namespace AppBundle\Domain\Photo;
 use AppBundle\Entity\Repository\RepoInterface\PhotoRepositoryInterface;
 use AppBundle\Exception\DeserializeException;
 use AppBundle\Exception\ValidatorException;
+use FOS\RestBundle\Request\ParamFetcher;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -106,9 +107,35 @@ class Photo implements PhotoInterface
     /**
      * {@inheritdoc}
      */
+    public function removeEntity(PhotoEntity $photo)
+    {
+        $this->getPhotoRepository()->removeEntityFlush($photo);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findEntityBy(array $parameters)
     {
         return $this->getPhotoRepository()->findEntityBy($parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPhotoByParameters(
+        ParameterBag $parameterBag,
+        ParamFetcher $paramFetcher,
+        $dateFrom,
+        $dateTo
+    )
+    {
+        return $this->getPhotoRepository()->getPhotoByParameters(
+            $parameterBag,
+            $paramFetcher,
+            $dateFrom,
+            $dateTo
+        );
     }
 
     /**

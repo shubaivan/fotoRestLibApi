@@ -4,8 +4,10 @@ namespace AppBundle\Application\Photo;
 
 use AppBundle\Domain\Photo\PhotoInterface as DomainPhotoInterface;
 use AppBundle\Exception\NotExistEntityException;
+use AppBundle\Helper\AdditionalFunction;
 use AppBundle\Helper\FileUploader;
 use AppBundle\Services\ObjectUpdater;
+use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use \AppBundle\Entity\Photo as PhotoEntity; 
@@ -28,6 +30,11 @@ class Photo implements PhotoInterface
     private $objectUpdater;
 
     /**
+     * @var AdditionalFunction
+     */
+    private $additionalFunction;
+
+    /**
      * Photo constructor.
      * @param DomainPhotoInterface $photoInterface
      * @param FileUploader $fileUploader
@@ -36,11 +43,13 @@ class Photo implements PhotoInterface
     public function __construct(
         DomainPhotoInterface $photoInterface,
         FileUploader $fileUploader,
-        ObjectUpdater $objectUpdater
+        ObjectUpdater $objectUpdater,
+        AdditionalFunction $additionalFunction
     ) {
         $this->photo = $photoInterface;
         $this->fileUploader = $fileUploader;
         $this->objectUpdater = $objectUpdater;
+        $this->additionalFunction = $additionalFunction;
     }
 
     /**
@@ -69,6 +78,17 @@ class Photo implements PhotoInterface
         $this->getDomainPhotoInterface()->postRepositoryPhoto($photo);
         return $photo;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeEntity($id)
+    {
+        if (!$photo = $this->getDomainPhotoInterface()->findEntityBy(['id' => $id])) {
+            throw new NotExistEntityException('No photo was found for this id '.$id);
+        }
+        $this->getDomainPhotoInterface()->removeEntity($photo);
+    }
     
     /**
      * {@inheritdoc}
@@ -81,6 +101,31 @@ class Photo implements PhotoInterface
         $this->getDomainPhotoInterface()->postRepositoryPhoto($photo);
         return $photo;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPhotoByParameters(
+        ParameterBag $parameterBag,        
+        ParamFetcher $paramFetcher,
+        $dateFrom,
+        $dateTo
+    )
+    {
+        if ($dateFrom !== null) {
+            $dateFrom = $this->additionalFunction->validateDateTime($dateFrom);
+        }
+        if ($dateTo !== null) {
+            $dateTo = $this->additionalFunction->validateDateTime($dateTo);
+        }
+        
+        return $this->getDomainPhotoInterface()->getPhotoByParameters(
+            $parameterBag,            
+            $paramFetcher,
+            $dateFrom,
+            $dateTo
+        );
+    }    
 
     /**
      * @return DomainPhotoInterface

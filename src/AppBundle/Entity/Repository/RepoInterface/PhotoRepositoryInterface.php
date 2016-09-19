@@ -3,6 +3,8 @@
 namespace AppBundle\Entity\Repository\RepoInterface;
 
 use AppBundle\Entity\Photo;
+use FOS\RestBundle\Request\ParamFetcher;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 interface PhotoRepositoryInterface
 {
@@ -40,4 +42,18 @@ interface PhotoRepositoryInterface
      * @return Photo|null
      */
     public function findEntityBy(array $parameters);
+
+    /**
+     * @param ParameterBag $parameterBag
+     * @param ParamFetcher $paramFetcher
+     * @param \DateTime|null $dateFrom
+     * @param \DateTime|null $dateTo
+     * @return Photo[]
+     */
+    public function getPhotoByParameters(
+        ParameterBag $parameterBag,        
+        ParamFetcher $paramFetcher,
+        $dateFrom,
+        $dateTo
+    );    
 }

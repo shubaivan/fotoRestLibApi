@@ -2,7 +2,8 @@
 
 namespace AppBundle\Application\Photo;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Entity\Photo as PhotoEntity;
+use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -26,12 +27,32 @@ interface PhotoInterface
     );
 
     /**
+     * @param integer $id
+     * @return void
+     */
+    public function removeEntity($id);
+    
+    /**
      * @param ParameterBag $parameterBag
      * @param integer $id
-     * @return Photo
+     * @return PhotoEntity
      */
     public function putPhoto(
         ParameterBag $parameterBag,
         $id
+    );
+
+    /**
+     * @param ParameterBag $parameterBag
+     * @param ParamFetcher $paramFetcher
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @return PhotoEntity[]
+     */
+    public function getPhotoByParameters(
+        ParameterBag $parameterBag,
+        ParamFetcher $paramFetcher,
+        $dateFrom,
+        $dateTo
     );    
 }
