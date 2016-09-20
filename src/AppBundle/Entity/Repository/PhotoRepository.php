@@ -84,6 +84,9 @@ class PhotoRepository extends EntityRepository implements PhotoRepositoryInterfa
             && is_array($tagIds = $parameterBag->get('tag_ids'))
         ) {
             $qb->andWhere($qb->expr()->in('t.id', $parameterBag->get('tag_ids')));
+            $qb->groupBy('p.id');
+            $qb->having('COUNT(t.id) = :tagIds');
+            $qb->setParameter('tagIds', count($parameterBag->get('tag_ids')));
         }
 
         if ($dateTo instanceof \DateTime && $dateFrom instanceof \DateTime) {
