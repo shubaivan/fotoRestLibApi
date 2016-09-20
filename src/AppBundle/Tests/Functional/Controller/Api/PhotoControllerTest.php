@@ -60,10 +60,11 @@ class PhotoControllerTest extends FunctionalTestCase
         /** @var Entity\Tags $tag4 */
         $tag4 = $tags[3];
         
-        $tagIds = [];
-        foreach ($tags as $tag){
-            $tagIds [] = $tag->getId();
-        }
+        $tagIds = [
+            $tag1->getId(),
+            $tag2->getId(),
+            $tag3->getId()
+        ];
         
         $photo1->addTags([$tag1, $tag2, $tag3]);
         $photo2->addTags([$tag4]);
@@ -74,8 +75,7 @@ class PhotoControllerTest extends FunctionalTestCase
         $this->getEntityManager()->clear();
 
         $expected = [
-            $photo1,
-            $photo2
+            $photo1
         ];
         
         $url = $this->generateUrl('get_photo', [], UrlGeneratorInterface::RELATIVE_PATH);
@@ -90,7 +90,7 @@ class PhotoControllerTest extends FunctionalTestCase
 
         $this->assertEquals(200, $this->getResponseStatus());
         $data = json_decode($this->getResponseContent(), true);
-        
+        $this->assertCount(count($expected), $data);
         $this->validateTagData($expected, $data);
         
         $this->checkRoute(['get'], $this->generateUrl('get_photo', [], UrlGeneratorInterface::RELATIVE_PATH), [], [
@@ -126,12 +126,14 @@ class PhotoControllerTest extends FunctionalTestCase
         /** @var Entity\Tags $tag4 */
         $tag4 = $tags[3];
 
-        $tagIds = [];
-        foreach ($tags as $tag){
-            $tagIds [] = $tag->getId();
-        }
+        $tagIds = [
+            $tag1->getId(),
+            $tag2->getId(),
+            $tag3->getId()
+        ];
 
         $photo1->addTags([$tag1, $tag2, $tag3]);
+        $photo2->addTags([$tag1, $tag2, $tag3]);        
 
         $this->getEntityManager()->persist($photo1);
         $this->getEntityManager()->persist($photo2);
@@ -140,6 +142,7 @@ class PhotoControllerTest extends FunctionalTestCase
 
         $expected = [
             $photo1,
+            $photo2            
         ];
 
         $url = $this->generateUrl('get_photo', [], UrlGeneratorInterface::RELATIVE_PATH);
@@ -154,7 +157,7 @@ class PhotoControllerTest extends FunctionalTestCase
 
         $this->assertEquals(200, $this->getResponseStatus());
         $data = json_decode($this->getResponseContent(), true);
-
+        $this->assertCount(count($expected), $data);
         $this->validateTagData($expected, $data);
     }
 
